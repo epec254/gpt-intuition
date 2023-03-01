@@ -10,8 +10,6 @@
 
 # tensorsPath = 'https://projector.tensorflow.org/oss_data/word2vec_10000_200d_tensors.bytes'
 
-# tensorsPath = 'https://projector.tensorflow.org/oss_data/word2vec_full_200d_tensors.bytes'
-
 # xhr.open('GET', tensorsPath);
 # xhr.responseType = 'arraybuffer';
 
@@ -29,19 +27,6 @@
 
 import numpy as np
 import pandas as pd
-
-x = [
-    -0.14177100360393524,
-    0.24957600235939026,
-    -0.18858399987220764,
-    -0.08152230083942413,
-    0.12844200432300568,
-    0.5471850037574768,
-    -0.19736599922180176,
-    0.14226900041103363,
-    -0.438946008682251,
-    -0.041615698486566544,
-]
 
 FILE = "word2vec_10000_200d_tensors"
 
@@ -79,4 +64,4 @@ for i in range(0, N):
 
 # print(df)
 
-df.to_csv(f"{FILE}.csv", header=False)
+df.to_csv(f"{FILE}.csv", header=False, index=False)
