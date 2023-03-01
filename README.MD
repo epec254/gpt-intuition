@@ -38,6 +38,7 @@ DATA_SETS = {
 - [ ] Add a way to select a single embedding and see the closet KNN within the space
 - [ ] Add support for creating a [GPT-Index](https://gpt-index.readthedocs.io/) and visually seeing how it works
 - [ ] Add in support for generating OpenAI-based embeddings directly
+- [ ] Colors match between the graphs
 - [ ] Animations!!
 - [ ] Testing - aka anything more than refresh and check ;-)
 
