@@ -32,6 +32,7 @@ DATA_SETS = {
         "color_column": "",
     },
 }
+```
 
 ## Roadmap
 
@@ -45,7 +46,3 @@ DATA_SETS = {
 ## Known issues
 
 * Sometimes, the app exits with the error `Terminating: Nested parallel kernel launch detected, the workqueue threading layer does not supported nested parallelism. Try the TBB threading layer.` - I believe this is due to the uMAP algorithm's implemention of multi-threading conflicting with Streamlit, but have not debugged the issue in depth.  Typically, restarting it a few times works.
-
-
-
-```
