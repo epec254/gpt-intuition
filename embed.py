@@ -25,10 +25,16 @@ DATA_SETS = {
         "color_column": "",
     },
     "paul_graham": {
-        "data_file": "tensorboard_projector_examples/paul_graham_gpt/paul_graham.csv",
+        "data_file": "gpt-examples/paul_graham_gpt/paul_graham.csv",
         "dimensions": 1536,
         "label_column": "index",
         "color_column": "",
+    },
+    "paul_graham_splits_1000_200overlap": {
+        "data_file": "gpt-examples/paul_graham_gpt/paul_graham_splits_1000_200overlap.csv",
+        "dimensions": 1536,
+        "label_column": "text_chunk",
+        "color_column": "index",
     },
 }
 

@@ -12,6 +12,7 @@ numpy = "*"
 scikit-learn = "*"
 llama-index = "*"
 chromadb = "*"
+langchain = "*"
 
 [dev-packages]
 jupyter = "*"
