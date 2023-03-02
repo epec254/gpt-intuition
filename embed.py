@@ -11,18 +11,31 @@ from sklearn.manifold import TSNE
 ### The expected format is a CSV file with any number of columns.  The embedding columns MUST be named "embedding_1", "embedding_2", etc.
 ### Color = the column name to use for coloring the points, should be a smaller number of unique values
 ### Label = the column name to use for labeling the points, will be displayed on hover
+### Dimensions = how many embedding_### columns aka size of the embedding vector
 DATA_SETS = {
     "iris": {
-        "data_file": "tensorboard_projector_examples/iris_labels_merged.csv",
+        "data_file": "datasets/iris_labels_merged.csv",
         "dimensions": 4,
         "label_column": "class",
         "color_column": "class",
     },
     "word2vec-10k-sample": {
-        "data_file": "tensorboard_projector_examples/word2vec_10000_200d_merged.csv",
+        "data_file": "datasets/word2vec_10000_200d_merged.csv",
         "dimensions": 200,
         "label_column": "word",
         "color_column": "",
+    },
+    "paul_graham": {
+        "data_file": "datasets/paul_graham_gpt_index_simplevector.csv",
+        "dimensions": 1536,
+        "label_column": "index",
+        "color_column": "",
+    },
+    "paul_graham_splits_1000_200overlap": {
+        "data_file": "datasets/paul_graham_splits_1000_200overlap.csv",
+        "dimensions": 1536,
+        "label_column": "text_chunk",
+        "color_column": "index",
     },
 }
 
@@ -36,13 +49,14 @@ st.set_page_config(
 st.title("📊 Embedding Visualization App")
 st.header("")
 
+
 # Compute the embeddings visualization - cache for performance
 
 
 @st.cache_data
 def compute_embeddings(projector_type, algorithm_params, data_set):
     # grab the configuration for the selected data set
-    dimensions = DATA_SETS[data_set]["dimensions"]
+    dimensions = algorithm_params["dimensions"]
     data_file = DATA_SETS[data_set]["data_file"]
 
     df = pd.read_csv(data_file, header=0)
@@ -103,6 +117,15 @@ def compute_embeddings(projector_type, algorithm_params, data_set):
 
 # publish to Streamlit with controls
 
+config, empty = st.columns([1, 4])
+
+with config:
+    st.markdown("### Controls")
+    # xx = st.selectbox("Mode", ("Dataset"))
+
+with empty:
+    st.markdown("### Visualization")
+
 controls, graphs = st.columns([1, 4])
 
 ALG_TSNE = "t-SNE"
@@ -112,58 +135,68 @@ with controls:
 
     CurrentDataSet = st.selectbox("Dataset", options=DATA_SETS.keys())
 
-    # TODO: Add error checking on this
-    LabelColumn = st.text_input(
-        "Label Column", DATA_SETS[CurrentDataSet]["label_column"]
-    )
-
-    # TODO: Add error checking on this
-    ColorColumn = st.text_input(
-        "Color Column", DATA_SETS[CurrentDataSet]["color_column"]
-    )
-
-    AlgorithmType = st.radio("Algorithm", (ALG_UMAP, ALG_TSNE))
-
-    if AlgorithmType == ALG_TSNE:
-        st.markdown(
-            "t-SNE [configuration](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)"
-        )
-
-        Perplexity = st.slider("Perplexity", 1, 100, 30)
-
-        RandomState = st.slider("RandomState", 1, 100, 25)
-
-        LearningRate = st.select_slider(
-            "Learning Rate", options=["auto", 0.001, 0.01, 0.1, 1, 10, 100, 500, 1000]
-        )
-
-        MaxIterations = st.slider("Max Iterations", 1, 1500, 1000)
-
-        IterationsWithoutProgress = st.slider(
-            "Iterations Without Progress", 1, 1500, 300
-        )
-
-        algorithm_params = {
-            "perplexity": Perplexity,
-            "random_state": RandomState,
-            "learning_rate": LearningRate,
-            "n_iter": MaxIterations,
-            "n_iter_without_progress": IterationsWithoutProgress,
-        }
-    elif AlgorithmType == ALG_UMAP:
-        st.markdown(
-            "UMAP [configuration](https://umap-learn.readthedocs.io/en/latest/parameters.html)"
-        )
-        RandomState = st.slider("RandomState", 0, 100, 2)
-
-        NumNeighbors = st.slider("Number Neighbors", 5, 50, 10)
-
-        algorithm_params = {
-            "random_state": RandomState,
-            "n_neighbors": NumNeighbors,
-        }
-
     embedding_computation_state = st.text("Computing embeddings...")
+
+    with st.expander("Dataset Settings"):
+        # TODO: Add error checking on this
+        LabelColumn = st.text_input(
+            "Label Column", DATA_SETS[CurrentDataSet]["label_column"]
+        )
+
+        # TODO: Add error checking on this
+        ColorColumn = st.text_input(
+            "Color Column", DATA_SETS[CurrentDataSet]["color_column"]
+        )
+
+        # TODO: Add error checking on this
+        NumberDimensions = st.number_input(
+            "Number Dimensions", DATA_SETS[CurrentDataSet]["dimensions"]
+        )
+
+    AlgorithmType = st.selectbox("Algorithm", (ALG_UMAP, ALG_TSNE))
+
+    with st.expander("Algorithm Settings"):
+        if AlgorithmType == ALG_TSNE:
+            st.markdown(
+                "t-SNE [configuration](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)"
+            )
+
+            Perplexity = st.slider("Perplexity", 1, 100, 30)
+
+            RandomState = st.slider("RandomState", 1, 100, 25)
+
+            LearningRate = st.select_slider(
+                "Learning Rate",
+                options=["auto", 0.001, 0.01, 0.1, 1, 10, 100, 500, 1000],
+            )
+
+            MaxIterations = st.slider("Max Iterations", 1, 1500, 1000)
+
+            IterationsWithoutProgress = st.slider(
+                "Iterations Without Progress", 1, 1500, 300
+            )
+
+            algorithm_params = {
+                "perplexity": Perplexity,
+                "random_state": RandomState,
+                "learning_rate": LearningRate,
+                "n_iter": MaxIterations,
+                "n_iter_without_progress": IterationsWithoutProgress,
+                "dimensions": NumberDimensions,
+            }
+        elif AlgorithmType == ALG_UMAP:
+            st.markdown(
+                "UMAP [configuration](https://umap-learn.readthedocs.io/en/latest/parameters.html)"
+            )
+            RandomState = st.slider("RandomState", 0, 100, 2)
+
+            NumNeighbors = st.slider("Number Neighbors", 5, 50, 10)
+
+            algorithm_params = {
+                "random_state": RandomState,
+                "n_neighbors": NumNeighbors,
+                "dimensions": NumberDimensions,
+            }
 
     df, proj_2d, proj_3d = compute_embeddings(
         AlgorithmType, algorithm_params, CurrentDataSet
