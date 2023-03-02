@@ -121,7 +121,7 @@ config, empty = st.columns([1, 4])
 
 with config:
     st.markdown("### Controls")
-    xx = st.selectbox("Mode", ("Dataset", "LangChain"))
+    # xx = st.selectbox("Mode", ("Dataset"))
 
 with empty:
     st.markdown("### Visualization")
@@ -153,9 +153,9 @@ with controls:
             "Number Dimensions", DATA_SETS[CurrentDataSet]["dimensions"]
         )
 
-    AlgorithmType = st.radio("Algorithm", (ALG_UMAP, ALG_TSNE))
+    AlgorithmType = st.selectbox("Algorithm", (ALG_UMAP, ALG_TSNE))
 
-    with st.expander("Advanced Settings"):
+    with st.expander("Algorithm Settings"):
         if AlgorithmType == ALG_TSNE:
             st.markdown(
                 "t-SNE [configuration](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)"
