@@ -24,6 +24,12 @@ DATA_SETS = {
         "label_column": "word",
         "color_column": "",
     },
+    "paul_graham": {
+        "data_file": "tensorboard_projector_examples/paul_graham_gpt/paul_graham.csv",
+        "dimensions": 1536,
+        "label_column": "index",
+        "color_column": "",
+    },
 }
 
 
