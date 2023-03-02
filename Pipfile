@@ -10,6 +10,8 @@ umap-learn = "*"
 watchdog = "*"
 numpy = "*"
 scikit-learn = "*"
+llama-index = "*"
+chromadb = "*"
 
 [dev-packages]
 jupyter = "*"
