@@ -26,7 +26,7 @@ The app comes configured with 2 sample sets of embeddings shamelessly stolen fro
 DATA_SETS = {
     ...
     "word2vec-10k-sample": {
-        "data_file": "tensorboard_projector_examples/word2vec_10000_200d_merged.csv",
+        "data_file": "datasets/word2vec_10000_200d_merged.csv",
         "dimensions": 200,
         "label_column": "word",
         "color_column": "",

@@ -62,4 +62,4 @@ outputs.set_axis(embedding_headers, axis=1, inplace=True)
 
 print(outputs)
 
-outputs.to_csv("paul_graham.csv", header=True, index=False)
+outputs.to_csv("paul_graham_gpt_index_simplevector.csv", header=True, index=False)
