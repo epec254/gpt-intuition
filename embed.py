@@ -117,16 +117,20 @@ def compute_embeddings(projector_type, algorithm_params, data_set):
 
 # publish to Streamlit with controls
 
-config, empty = st.columns([1, 4])
+c1, c2, c3 = st.columns([1, 4, 1])
 
-with config:
+with c1:
     st.markdown("### Controls")
     # xx = st.selectbox("Mode", ("Dataset"))
 
-with empty:
+with c2:
     st.markdown("### Visualization")
 
-controls, graphs = st.columns([1, 4])
+with c3:
+    st.markdown("### Filters")
+    # xx = st.selectbox("Mode", ("Dataset"))
+
+controls, graphs, filters = st.columns([1, 4, 1])
 
 ALG_TSNE = "t-SNE"
 ALG_UMAP = "UMAP"
@@ -204,6 +208,9 @@ with controls:
 
     embedding_computation_state.text("Embeddings computed!")
 
+
+with filters:
+    st.write("hello")
 
 color_input = None if ColorColumn == "" else proj_3d[ColorColumn]
 
