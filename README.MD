@@ -8,6 +8,10 @@ While OpenAI provides a [Notebook for visualizing embeddings](https://github.com
 
 This is a "good enough" version of a visualization tool based on Streamlit and open source uMAP and tSNE algorithms.  The tool's primary goal is to make it easy for you to load your own embeddings *quickly.*
 
+## Working demo version
+
+Courtesy of Streamlit cloud, here is a working demo: [https://gpt-intuition-embedding-visualizer.streamlit.app/](https://gpt-intuition-embedding-visualizer.streamlit.app/)
+
 ## Usage
 I use `pipenv` for management of pip packages & virtualenvs.  You can either do `pipenv install` or `pip install -r requirements.txt`.  If you use pip directly, I suggest doing so inside a virtual environment (`pipenv` handles this for you).
 
@@ -15,7 +19,7 @@ Run `streamlit run embed.py` to launch the Streamlit web application.
 
 ## Configuration
 
-The app comes configured with 4 sample sets of embeddings, 2 shamelessly stolen from Tensorflow and 2 generated with llama-index and langchain from the Paul Graham essay.  
+The app comes configured with 4 sample sets of embeddings, 2 shamelessly stolen from Tensorflow and 2 generated with `llama-index` and `langchain` from the Paul Graham essay.  
 
 Adding your own is easy:
 
