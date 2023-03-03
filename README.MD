@@ -41,14 +41,14 @@ DATA_SETS = {
 ```
 
 ## Roadmap
-
+- [ ] Upload CSV file and visualize
 - [ ] Add a way to select a single embedding and see the closet KNN within the space
-- [ ] Add support for creating a [GPT-Index](https://gpt-index.readthedocs.io/) and visually seeing how it works
-- [ ] Add in support for generating OpenAI-based embeddings directly
-- [ ] Colors match between the graphs
+- [ ] Add in support for generating OpenAI-based embeddings directly from the UX
+- [ ] Automatically load any CSV file put into `/data/`
+- [ ] Add support for creating a [GPT-Index](https://gpt-index.readthedocs.io/) or LangChain's chains and visually seeing how it works
 - [ ] Animations!!
 - [ ] Testing - aka anything more than refresh and check ;-)
-- [ ] Automatically load any CSV file put into `/data/`
+
 
 ## Known issues
 
